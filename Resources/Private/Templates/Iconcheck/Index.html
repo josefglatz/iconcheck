@@ -1,0 +1,49 @@
+{namespace core = TYPO3\CMS\Core\ViewHelpers}
+{namespace ic = JosefGlatz\Iconcheck\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="content">
+	<h1><f:translate key="backendModule.Iconcheck" /></h1>
+	<p class="lead">List registered icon identifiers and show icons with string
+		<f:for each="{iconsToShow}" as="icon" key="key" iteration="i"><strong>{key}</strong><f:if condition="{i.isLast}" then="." else=" / " />
+		</f:for> <span class="text-muted small">An Adminstrator can set the desired icons to show within the extension configuration.</span>
+	</p>
+
+	<hr>
+
+	<f:for each="{iconsToShow}" as="showIcons" key="key">
+		<f:render section="Table" arguments="{icons: showIcons, key: key}" />
+	</f:for>
+
+	<f:if condition="{allIcons}">
+		<h2>All Icon identifiers</h2>
+		<div class="row">
+			<f:for each="{allIcons}" as="icon">
+				<div class="col-md-6 col-lg-3" data-icon-identifier="{icon}">
+					<span class="icon-container-icon"></span>
+					<span class="icon-container-label">{icon}</span>
+				</div>
+			</f:for>
+		</div>
+	</f:if>
+</f:section>
+
+<f:section name="Table">
+	<h2>Icons prefixed with "<strong>{key}</strong>"</h2>
+	<div class="panel">
+		<div class="icon-list">
+			<f:for each="{icons}" as="icon">
+				<f:render section="IconContainer" arguments="{_all}" />
+			</f:for>
+		</div>
+
+	</div>
+
+</f:section>
+
+<f:section name="IconContainer">
+	<div class="col-12 col-sm-6 col-md-3 icon-container text-center" data-icon-identifier="{icon}}">
+		<core:icon identifier="{icon}" size="large" />
+		<p>{icon}</p>
+	</div>
+</f:section>

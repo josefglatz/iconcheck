@@ -1,0 +1,73 @@
+{
+	"name": "josefglatz/iconcheck",
+	"type": "typo3-cms-extension",
+	"description": "Module for listing registered icons and icon identifiers",
+	"keywords": [
+		"TYPO3",
+		"extension",
+		"productivity",
+		"integrators",
+		"improvements"
+	],
+	"support": {
+		"issues": "https://github.com/josefglatz/iconcheck/issues",
+		"source": "https://github.com/josefglatz/iconcheck"
+	},
+	"authors": [
+		{
+			"name": "Josef Glatz",
+			"email": "jousch@gmail.com",
+			"homepage": "http://jousch.com",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://github.com/josefglatz/iconcheck",
+	"license": [
+		"GPL-3.0"
+	],
+	"require": {
+		"roave/security-advisories": "dev-master",
+		"typo3/cms-core": "^8.7"
+	},
+	"require-dev": {
+		"namelesscoder/typo3-repository-client": "^2.0",
+		"mikey179/vfsStream": "~1.6.0",
+		"phpunit/phpunit": "~4.8.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"JosefGlatz\\Iconcheck\\": "Classes"
+		}
+	},
+	"replace": {
+		"iconcheck": "self.version",
+		"typo3-ter/iconcheck": "self.version"
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin"
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"mkdir -p .Build/Web/typo3conf/ext/",
+			"[ -L .Build/Web/typo3conf/ext/iconcheck ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/iconcheck"
+		],
+		"release": [
+			"@ext-dependencies",
+			"@package"
+		],
+		"ext-dependencies": [
+			"cd Resources/Private/Contrib/Libraries && composer install"
+		],
+		"package": [
+			"./Build/Release.sh"
+		]
+	},
+	"extra": {
+		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": ".Build/Web"
+		}
+	}
+}
+
