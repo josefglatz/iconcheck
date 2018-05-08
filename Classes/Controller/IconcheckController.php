@@ -95,8 +95,10 @@ class IconcheckController extends ActionController
                         $iconsToShow[$string][] = $key;
                     }
                 }
-                // Sort icons
-                natcasesort($iconsToShow[$string]);
+                // Sort icons (only if it is an array)
+                if (is_array($iconsToShow[$string])) {
+                    natcasesort($iconsToShow[$string]);
+                }
             }
             $this->view->assign('iconsToShow', $iconsToShow);
         }
