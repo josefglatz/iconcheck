@@ -21,11 +21,15 @@ class ExtensionConfiguration
 
     public function __construct()
     {
-        /** @noinspection UnserializeExploitsInspection */
-        $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck']);
-        foreach ($settings as $key => $value) {
-            if (property_exists(__CLASS__, $key)) {
-                $this->$key = $value;
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck'] === null) {
+            $settings = [];
+        } else {
+            /** @noinspection UnserializeExploitsInspection */
+            $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck']);
+            foreach ($settings as $key => $value) {
+                if (property_exists(__CLASS__, $key)) {
+                    $this->$key = $value;
+                }
             }
         }
     }
