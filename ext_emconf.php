@@ -5,7 +5,7 @@ $EM_CONF[$_EXTKEY] = array (
   'category' => 'be',
   'author' => 'Josef Glatz',
   'state' => 'stable',
-  'version' => '1.0.1',
+  'version' => '1.0.2',
   'constraints' => 
   array (
     'depends' => 
