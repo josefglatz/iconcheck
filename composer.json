@@ -26,13 +26,13 @@
 		"GPL-3.0"
 	],
 	"require": {
-		"roave/security-advisories": "dev-master",
 		"typo3/cms-core": "^8.7"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^2.0",
 		"mikey179/vfsStream": "~1.6.0",
-		"phpunit/phpunit": "~4.8.0"
+		"phpunit/phpunit": "~4.8.0",
+		"roave/security-advisories": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
