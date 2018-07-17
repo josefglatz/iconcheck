@@ -26,7 +26,7 @@
 		"GPL-3.0"
 	],
 	"require": {
-		"typo3/cms-core": "^8.7"
+		"typo3/cms-core": "^8.7 || >=9.1.0 <9.4.0"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^2.0",
