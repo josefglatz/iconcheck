@@ -5,7 +5,9 @@ namespace JosefGlatz\Iconcheck\Controller;
 use JosefGlatz\Iconcheck\Domain\Model\Dto\ExtensionConfiguration;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
@@ -62,7 +64,27 @@ class IconcheckController extends ActionController
             ->setModuleName($moduleName)
             ->setGetVariables($getVars);
         $buttonBar->addButton($shortcutButton);
-    }
+
+        // Add javascript for the backend module
+        $pageRenderer = $this->view->getModuleTemplate()->getPageRenderer();
+        $pageRenderer->addRequireJsConfiguration(
+            // To shim the non AMD/UMD compatible javascript library it is necessary
+            // to add it to the requirejs.config({})
+            [
+                'shim' => [
+                    'clipboardjs' => ['exports' => 'clipboardjs']
+                ],
+                'paths' => [
+                    'clipboardjs' => PathUtility::getAbsoluteWebPath(
+                        ExtensionManagementUtility::extPath(
+                            'iconcheck',
+                            'Resources/Public/JavaScript/clipboard.js-2.0.1/dist/'
+                        ) . 'clipboard.min'
+                    )
+                ],
+            ]
+        );
+        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Iconcheck/CopyToClipboard');
 
     /**
      * Overview

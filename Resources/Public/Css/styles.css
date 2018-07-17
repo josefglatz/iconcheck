@@ -62,3 +62,7 @@
 .icon-container p {
 	margin-top: 20px
 }
+
+.copy-paste-supported .click-to-copy {
+	cursor: pointer;
+}

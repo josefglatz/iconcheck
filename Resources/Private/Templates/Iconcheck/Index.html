@@ -9,6 +9,12 @@
 		</f:for> <span class="text-muted small">An Adminstrator can set the desired icons to show within the extension configuration.</span>
 	</p>
 
+	<div class="hidden show-when-copy-paste-supported">
+		<f:be.infobox title="Click to Copy" state="-1" disableIcon="false">
+			Click to copy a specific icon identifier to your clipboard.
+		</f:be.infobox>
+	</div>
+
 	<hr>
 
 	<f:for each="{iconsToShow}" as="showIcons" key="key">
@@ -42,7 +48,7 @@
 </f:section>
 
 <f:section name="IconContainer">
-	<div class="col-12 col-sm-6 col-md-3 icon-container text-center" data-icon-identifier="{icon}}">
+	<div data-clipboard-text="{icon}" class="col-12 col-sm-6 col-md-3 icon-container text-center click-to-copy" data-icon-identifier="{icon}">
 		<core:icon identifier="{icon}" size="large" />
 		<p>{icon}</p>
 	</div>
