@@ -52,15 +52,21 @@ Extension Manager.
 
 ---
 
-### Screenshots
+## Configuration
 
-#### Open the module
+*Documentation in progress*
+
+---
+
+## Screenshots
+
+### Open the module
 
 ![TYPO3-8.7-Menu.png](Resources/Public/Images/Documentation/TYPO3-8.7-Menu.png)
 
 ---
 
-#### Preview of the backend module
+### Preview of the backend module
 
 ![TYPO3-8.7-Module.png](Resources/Public/Images/Documentation/TYPO3-8.7-Module.png)
 
@@ -68,8 +74,16 @@ Extension Manager.
 
 ---
 
-#### Extension Configuration
+### Extension Configuration
 
 ![TYPO3-8.7-extConf.png](Resources/Public/Images/Documentation/TYPO3-8.7-extConf.png)
 
 ---
+
+## Thanks to
+
+Open-Source is all about community and support! I want to thank everyone who contributed reports, feedback on any channel and code!
+
+### Based on other nice stuff
+
+- **[clipboard.js](https://zenorocha.github.io/clipboard.js)** from Zeno Rocha
