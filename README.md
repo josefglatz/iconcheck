@@ -4,6 +4,11 @@
 
 > Useful for TYPO3 integrators and developers
 
+## Overview
+
+- [Installation Methods](#installation)
+- [Screenshots](#screenshots)
+
 ---
 
 ## Installation
