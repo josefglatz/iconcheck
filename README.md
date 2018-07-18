@@ -4,6 +4,48 @@
 
 > Useful for TYPO3 integrators and developers
 
+---
+
+## Installation
+
+The extension needs to be installed as any other extension of TYPO3 CMS:
+
+### via Composer
+
+**Require extension**
+
+```bash
+composer require josefglatz/iconcheck
+```
+
+**Require extension only in development context**
+
+```bash
+composer require-dev josefglatz/iconcheck
+```
+
+**Require master branch of the extension** (for testing latest
+development state)
+
+```bash
+composer require-dev josefglatz/iconcheck:dev-master
+```
+
+### via TYPO3 Extension Repository
+
+#### Get it from the Extension Manager
+
+Press the “Retrieve/Update” button and search for the extension key
+*news* and import the extension from the repository.
+
+#### Get it from typo3.org:
+
+You can always get current version from
+[http://typo3.org/extensions/repository/view/iconcheck/current/](http://typo3.org/extensions/repository/view/iconcheck/current/)
+by downloading either the zip version. Upload the file afterwards in the
+Extension Manager.
+
+---
 
 ### Screenshots
 
