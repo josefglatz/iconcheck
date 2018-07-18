@@ -1,7 +1,17 @@
+.module-body {
+	background-color: hsl(0, 0%, 97%);
+}
+
+.module-body .panel {
+	box-shadow: none;
+	background: transparent;
+}
+
 .icon-list {
+	border: none;
 	display: flex;
 	flex-wrap: wrap;
-	background: #eee;
+	background: transparent;
 }
 .icon-list > .icon-container {
 	flex: 0 0 auto;
@@ -46,13 +56,15 @@
 
 
 .icon-container {
-	border: 1px solid #eee;
 	padding: 20px;
 	font-size: 9px;
+	background-color: white;
+	border: 6px solid hsl(0, 0%, 97%);
 }
 
 .icon-container:hover {
-	background: white;
+	background-image: linear-gradient(45deg, #ffffff 33.33%, #fafafa 33.33%, #fafafa 50%, #ffffff 50%, #ffffff 83.33%, #fafafa 83.33%, #fafafa 100%);
+	background-size: 6.00px 6.00px;
 }
 
 .icon-container:hover .icon {
