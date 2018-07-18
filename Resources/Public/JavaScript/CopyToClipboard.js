@@ -4,18 +4,18 @@ define([
 ], function ($, clipboardjs) {
     'use strict';
 
+    var container = $('#container-content'),
+        hiddenMarkupToShow = $('.show-when-copy-paste-supported');
+
     // Show copy functionality if it's supported by the browser
     if(clipboardjs.isSupported()) {
-        var container = $('#container-content'),
-            hiddenMarkupToShow = $('.show-when-copy-paste-supported');
 
-        // add class for better UI styling if the feature is supported
-        container.toggleClass('copy-paste-supported');
-        // show hidden markup
-        hiddenMarkupToShow.toggleClass('hidden');
+        // initialize UI
+        adoptUI();
 
         var clipboard = new clipboardjs('.click-to-copy');
 
+        // Show feedback on success
         clipboard.on('success', function(e) {
             top.TYPO3.Notification.success(
                 'Identifier copied to clipboard',
@@ -25,8 +25,9 @@ define([
             e.clearSelection();
         });
 
+        // Log event to console and disable the functionality completely
         clipboard.on('error', function(e) {
-            // Log event to console and disable the functionality completely
+
             console.error('Action:', e.action);
             console.error('Trigger:', e.trigger);
 
@@ -37,9 +38,20 @@ define([
                 'and copy text in this module manually.'
             );
 
+            // Disable clipboard.js functionality
             clipboard.destroy();
-            container.toggleClass('copy-paste-supported');
-            hiddenMarkupToShow.toggleClass('hidden');
+            // uninitialize UI
+            adoptUI();
         });
+    }
+
+    /**
+     * Adopt UI markup which is used on
+     * - initialization
+     * - and if the copy to clipboard functionality has errors
+     */
+    function adoptUI() {
+        container.toggleClass('copy-paste-supported');
+        hiddenMarkupToShow.toggleClass('hidden');
     }
 });
