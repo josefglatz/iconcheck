@@ -19,13 +19,13 @@
 				<source>List all registered icon identifiers</source>
 			</trans-unit>
 			<trans-unit id="extmng.listIconsWithPrefix">
-				<source>Render icons with icon identifiers with following containing strings (comma separated)</source>
+				<source>Render icons of icon identifiers which starts with the following string (separate them by comma)</source>
 			</trans-unit>
 			<trans-unit id="extmng.enableModuleForEverybody">
 				<source>Enable module for backend users without administrator permissions</source>
 			</trans-unit>
 			<trans-unit id="extmng.disableModule">
-				<source>Disable module completely (e.g. for specific production environments set via Local-/AdditionalConfiguration)</source>
+				<source>Disable module completely (Configure the extension configuration via Local-/AdditionalConfiguration for specific environments)</source>
 			</trans-unit>
 		</body>
 	</file>
