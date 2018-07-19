@@ -5,13 +5,14 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'be',
     'author' => 'Josef Glatz',
     'author_email' => 'jousch@gmail.com',
+    'author_company' => '',
     'state' => 'stable',
     'version' => '2.0.1',
     'constraints' =>
         [
             'depends' =>
                 [
-                    'typo3' => '8.7.0-9.3.99',
+                    'typo3' => '8.7.17-9.3.99',
                 ],
             'conflicts' =>
                 [
