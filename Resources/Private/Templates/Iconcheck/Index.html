@@ -17,6 +17,16 @@
 
 	<hr>
 
+	<h2>Filter icons</h2>
+
+	<div class="row">
+		<div class="col-12 col-md-4 col-lg-2">
+			<input type="text" id="t3js-icon-search" class="form-control t3js-clearable">
+		</div>
+	</div>
+
+	<hr>
+
 	<f:for each="{iconsToShow}" as="showIcons" key="key">
 		<f:render section="Table" arguments="{icons: showIcons, key: key}" />
 	</f:for>
@@ -36,13 +46,10 @@
 
 <f:section name="Table">
 	<h2>Icons prefixed with "<strong>{key}</strong>"</h2>
-	<div class="panel">
-		<div class="icon-list">
-			<f:for each="{icons}" as="icon">
-				<f:render section="IconContainer" arguments="{_all}" />
-			</f:for>
-		</div>
-
+	<div class="icon-list">
+		<f:for each="{icons}" as="icon">
+			<f:render section="IconContainer" arguments="{_all}" />
+		</f:for>
 	</div>
 
 </f:section>
