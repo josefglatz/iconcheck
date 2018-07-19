@@ -68,8 +68,8 @@ class IconcheckController extends ActionController
         // Add javascript for the backend module
         $pageRenderer = $this->view->getModuleTemplate()->getPageRenderer();
         $pageRenderer->addRequireJsConfiguration(
-            // To shim the non AMD/UMD compatible javascript library it is necessary
-            // to add it to the requirejs.config({})
+        // To shim the non AMD/UMD compatible javascript library it is necessary
+        // to add it to the requirejs.config({})
             [
                 'shim' => [
                     'clipboardjs' => ['exports' => 'clipboardjs']
@@ -85,6 +85,7 @@ class IconcheckController extends ActionController
             ]
         );
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/Iconcheck/CopyToClipboard');
+    }
 
     /**
      * Overview
