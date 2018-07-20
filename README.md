@@ -26,14 +26,14 @@ composer require josefglatz/iconcheck
 **Require extension only in development context**
 
 ```bash
-composer require-dev josefglatz/iconcheck
+composer require --dev josefglatz/iconcheck
 ```
 
 **Require master branch of the extension** (for testing latest
 development state)
 
 ```bash
-composer require-dev josefglatz/iconcheck:dev-master
+composer require --dev josefglatz/iconcheck:dev-master
 ```
 
 ### via TYPO3 Extension Repository
