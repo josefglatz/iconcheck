@@ -19,17 +19,27 @@ class ExtensionConfiguration
     /** @var bool */
     protected $disableModule;
 
+    /** @var bool */
+    protected $extensionSetupFinished = true;
+
     public function __construct()
     {
         if ($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck'] === null) {
-            $settings = [];
+            $settings = [
+                'listAllIconIdentifiers' => true,
+                'listIconsWithPrefix' => 'content',
+                'enableModuleForEverybody' => true,
+                'disableModule' => false,
+                'extensionSetupFinished' => false,
+            ];
         } else {
             /** @noinspection UnserializeExploitsInspection */
             $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck']);
-            foreach ($settings as $key => $value) {
-                if (property_exists(__CLASS__, $key)) {
-                    $this->$key = $value;
-                }
+        }
+
+        foreach ($settings as $key => $value) {
+            if (property_exists(__CLASS__, $key)) {
+                $this->$key = $value;
             }
         }
     }
@@ -64,5 +74,13 @@ class ExtensionConfiguration
     public function isDisableModule(): bool
     {
         return (bool)$this->disableModule;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExtensionSetupFinished(): bool
+    {
+        return $this->extensionSetupFinished;
     }
 }

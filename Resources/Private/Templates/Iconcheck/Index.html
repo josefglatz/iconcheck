@@ -9,6 +9,12 @@
 		</f:for> <span class="text-muted small">An Adminstrator can set the desired icons to show within the extension configuration.</span>
 	</p>
 
+	<f:if condition="{setupWarning} !== false">
+		<f:be.infobox title="EXT:iconcheck setup not finished" state="1" disableIcon="false">
+			Seems like you didn't finished the setup of the extension yet. You can configure it to your custom needs. Default extension settings are loaded and only icon identifiers beginning with <code>content</code> are rendered as icons.
+		</f:be.infobox>
+	</f:if>
+
 	<div class="hidden show-when-copy-paste-supported">
 		<f:be.infobox title="Click to Copy" state="-1" disableIcon="false">
 			Click to copy a specific icon identifier to your clipboard.

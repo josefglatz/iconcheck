@@ -125,5 +125,11 @@ class IconcheckController extends ActionController
             }
             $this->view->assign('iconsToShow', $iconsToShow);
         }
+
+        // Render information if extension setup isn't finished yet
+        // (occurs mostly if the extension was activated through composer only)
+        if (!$extConf->isExtensionSetupFinished()) {
+            $this->view->assign('setupWarning', true);
+        }
     }
 }
