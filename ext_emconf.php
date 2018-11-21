@@ -7,7 +7,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'jousch@gmail.com',
     'author_company' => 'josefglatz.at',
     'state' => 'stable',
-    'version' => '2.0.3',
+    'version' => '2.1.0',
     'constraints' =>
         [
             'depends' =>
