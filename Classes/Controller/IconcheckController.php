@@ -88,7 +88,7 @@ class IconcheckController extends ActionController
     }
 
     /**
-     * Overview
+     * The main action of the extension
      *
      * @throws \InvalidArgumentException
      */
@@ -100,6 +100,7 @@ class IconcheckController extends ActionController
         $iconsAll = $iconRegistry->getAllRegisteredIconIdentifiers();
 
         // Load extConf
+        // @TODO If TYPO3 8 LTS support should be dropped: Refactor $extConf to use TYPO3 core's ExtensionConfiguration class
         $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
         // Show all icon identifiers alphabetically if enabled

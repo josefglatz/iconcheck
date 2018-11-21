@@ -10,8 +10,11 @@
 	</p>
 
 	<f:if condition="{setupWarning} !== false">
+		<f:variable name="keysToShow"><f:spaceless>
+			<f:for each="{iconsToShow}" as="icon" key="key" iteration="i">{key}{f:if(condition: i.isLast, else: ', ')}</f:for>
+		</f:spaceless></f:variable>
 		<f:be.infobox title="EXT:iconcheck setup not finished" state="1" disableIcon="false">
-			Seems like you didn't finished the setup of the extension yet. You can configure it to your custom needs. Default extension settings are loaded and only icon identifiers beginning with <code>content</code> are rendered as icons.
+			Seems like you didn't finished the setup of the extension yet. You can configure it to your custom needs. Default extension settings are loaded and only icon identifiers beginning with <code>{keysToShow}</code> are rendered as icons.
 		</f:be.infobox>
 	</f:if>
 

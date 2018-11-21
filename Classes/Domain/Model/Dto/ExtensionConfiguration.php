@@ -4,6 +4,12 @@ namespace JosefGlatz\Iconcheck\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * Class ExtensionConfiguration
+ * @package JosefGlatz\Iconcheck\Domain\Model\Dto
+ *
+ * @TODO If TYPO3 8 LTS support should be dropped: remove ExtensionConfiguration Dto
+ */
 class ExtensionConfiguration
 {
 
