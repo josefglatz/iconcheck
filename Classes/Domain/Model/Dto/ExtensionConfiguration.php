@@ -2,6 +2,7 @@
 
 namespace JosefGlatz\Iconcheck\Domain\Model\Dto;
 
+use JosefGlatz\Iconcheck\Service\VersionService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -25,22 +26,13 @@ class ExtensionConfiguration
     /** @var bool */
     protected $disableModule;
 
-    /** @var bool */
-    protected $extensionSetupFinished = true;
-
     public function __construct()
     {
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck'] === null) {
-            $settings = [
-                'listAllIconIdentifiers' => true,
-                'listIconsWithPrefix' => 'content',
-                'enableModuleForEverybody' => true,
-                'disableModule' => false,
-                'extensionSetupFinished' => false,
-            ];
-        } else {
-            /** @noinspection UnserializeExploitsInspection */
-            $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck']);
+        if (VersionService::isVersion8()) {
+            $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck'], [ false ]);
+        }
+        if (VersionService::isVersion9() || VersionService::isVersion10()) {
+            $settings = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('iconcheck');
         }
 
         foreach ($settings as $key => $value) {
@@ -80,13 +72,5 @@ class ExtensionConfiguration
     public function isDisableModule(): bool
     {
         return (bool)$this->disableModule;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isExtensionSetupFinished(): bool
-    {
-        return $this->extensionSetupFinished;
     }
 }

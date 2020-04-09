@@ -7,12 +7,12 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'jousch@gmail.com',
     'author_company' => 'josefglatz.at',
     'state' => 'stable',
-    'version' => '2.1.0',
+    'version' => '2.2.0',
     'constraints' =>
         [
             'depends' =>
                 [
-                    'typo3' => '8.7.17-9.5.99',
+                    'typo3' => '8.7.17-10.4.99',
                 ],
             'conflicts' =>
                 [

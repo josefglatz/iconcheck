@@ -26,12 +26,12 @@
 		"GPL-3.0"
 	],
 	"require": {
-		"php":"^7.0 || ^7.1 || ^7.2",
-		"typo3/cms-core": "^8.7 || ^9.5"
+		"php":"^7.0 || ^7.1 || ^7.2 || ^7.3 || ^7.4",
+		"typo3/cms-core": "^8.7 || ^9.5 || ^10.4"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^2.0",
-		"mikey179/vfsStream": "~1.6.0",
+		"mikey179/vfsstream": "~1.6.0",
 		"phpunit/phpunit": "~4.8.0"
 	},
 	"autoload": {
@@ -40,7 +40,6 @@
 		}
 	},
 	"replace": {
-		"iconcheck": "self.version",
 		"typo3-ter/iconcheck": "self.version"
 	},
 	"config": {
@@ -66,7 +65,8 @@
 	"extra": {
 		"typo3/cms": {
 			"cms-package-dir": "{$vendor-dir}/typo3/cms",
-			"web-dir": ".Build/Web"
+			"web-dir": ".Build/Web",
+			"extension-key": "iconcheck"
 		}
 	}
 }

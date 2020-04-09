@@ -3,9 +3,15 @@ defined('TYPO3_MODE') or die();
 
 /**
  * Configure the backend module based on the extension configuration
+ *
+ * @TODO If TYPO3 9.5 LTS support should be dropped: only use Typo3Version class instead of TYPO3_version constant
+ * @TODO If TYPO3 8 LTS support should be dropped: remove TYPO3 version check for ExtensionConfiguration
  */
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
-    // @TODO If TYPO3 8 LTS support should be dropped: remove version check
+$typo3Version = class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)
+    ? (new \TYPO3\CMS\Core\Information\Typo3Version())->getVersion()
+    : TYPO3_version;
+
+if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version) >= 9000000) {
     $extConfIconcheck = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
         \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class);
     $isDisableModule = $extConfIconcheck->get('iconcheck', 'disableModule');
@@ -34,4 +40,4 @@ if (!$isDisableModule) {
         ]
     );
 }
-unset($extConfIconcheck, $isDisableModule, $isEnableModuleForEverybody);
+unset($extConfIconcheck, $isDisableModule, $isEnableModuleForEverybody, $typo3Version);
