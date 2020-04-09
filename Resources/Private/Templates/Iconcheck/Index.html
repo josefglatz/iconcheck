@@ -9,12 +9,6 @@
 		</f:for> <span class="text-muted small">An Adminstrator can set the desired icons to show within the extension configuration.</span>
 	</p>
 
-	<f:if condition="{setupWarning} !== false">
-		<f:variable name="keysToShow"><f:spaceless>
-			<f:for each="{iconsToShow}" as="icon" key="key" iteration="i">{key}{f:if(condition: i.isLast, else: ', ')}</f:for>
-		</f:spaceless></f:variable>
-	</f:if>
-
 	<div class="hidden show-when-copy-paste-supported">
 		<f:be.infobox title="Click to Copy" state="-1" disableIcon="false">
 			Click to copy a specific icon identifier to your clipboard.
