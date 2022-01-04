@@ -23,6 +23,12 @@ if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
     $isEnableModuleForEverybody = $extConfIconcheck->isEnableModuleForEverybody();
 }
 
+if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version) >= 11000000) {
+    $controller = \JosefGlatz\Iconcheck\Controller\IconcheckController::class;
+} else {
+    $controller = 'Iconcheck';
+}
+
 // Register backend module if it is not disabled
 if (!$isDisableModule) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
@@ -31,7 +37,7 @@ if (!$isDisableModule) {
         'tx_iconcheck_m1',
         '',
         [
-            'Iconcheck' => 'index'
+            $controller => 'index'
         ],
         [
             'access' => $isEnableModuleForEverybody ? 'user,group' : 'admin',

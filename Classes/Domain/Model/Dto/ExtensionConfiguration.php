@@ -31,7 +31,7 @@ class ExtensionConfiguration
         if (VersionService::isVersion8()) {
             $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['iconcheck'], [ false ]);
         }
-        if (VersionService::isVersion9() || VersionService::isVersion10()) {
+        if (VersionService::isVersion9() || VersionService::isVersion10() || VersionService::isVersion11()) {
             $settings = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('iconcheck');
         }
 
