@@ -12,7 +12,7 @@ $EM_CONF[$_EXTKEY] = [
         [
             'depends' =>
                 [
-                    'typo3' => '8.7.17-10.4.99',
+                    'typo3' => '8.7.17-11.5.99',
                 ],
             'conflicts' =>
                 [

@@ -35,6 +35,15 @@ class VersionService
 
     }
 
+    public static function isVersion11(): bool
+    {
+        $constraintVersionMax = 11999999;
+        $constraintVersionMin = 11000000;
+
+        return static::evaluateCondition($constraintVersionMin, $constraintVersionMax);
+
+    }
+
     /**
      * @param int $min
      * @param int $max
