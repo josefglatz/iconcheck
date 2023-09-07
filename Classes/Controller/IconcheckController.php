@@ -2,129 +2,74 @@
 
 namespace JosefGlatz\Iconcheck\Controller;
 
-use JosefGlatz\Iconcheck\Domain\Model\Dto\ExtensionConfiguration;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
+use JosefGlatz\Iconcheck\Domain\Model\Dto\ExtensionSettings;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 
 class IconcheckController extends ActionController
 {
+    private ModuleTemplate $moduleTemplate;
 
-    /**
-     * Backend Template Container.
-     * Takes care of outer "docheader" and other stuff this module is embedded in.
-     *
-     * @var string
-     */
-    protected $defaultViewObjectName = BackendTemplateView::class;
-
-    /**
-     * BackendTemplateContainer
-     *
-     * @var BackendTemplateView
-     */
-    protected $view;
-
-    /**
-     * @var string
-     */
-    protected $languageFilePrefix = 'LLL:EXT:iconcheck/Resources/Private/Language/locallang.xlf:';
-
-    /**
-     * Method is called before each action and sets up the doc header.
-     *
-     * @param ViewInterface $view
-     */
-    protected function initializeView(ViewInterface $view)
-    {
-        parent::initializeView($view);
-
-        // Early return for actions without valid view like tcaCreateAction or tcaDeleteAction
-        if (!($this->view instanceof BackendTemplateView)) {
-            return;
-        }
-
-        $this->view->assign('currentAction', $this->request->getControllerActionName());
-
-        // Shortcut button
-        $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
-        $getVars = $this->request->getArguments();
-        $extensionName = $this->request->getControllerExtensionName();
-        $moduleName = $this->request->getPluginName();
-        if (\count($getVars) === 0) {
-            $modulePrefix = strtolower('tx_' . $extensionName . '_' . $moduleName);
-            $getVars = array('id', 'M', $modulePrefix);
-        }
-        $shortcutButton = $buttonBar->makeShortcutButton()
-            ->setModuleName($moduleName)
-            ->setGetVariables($getVars);
-        $buttonBar->addButton($shortcutButton);
-
-        // Add javascript for the backend module
-        $pageRenderer = $this->view->getModuleTemplate()->getPageRenderer();
-        $pageRenderer->addRequireJsConfiguration(
-        // To shim the non AMD/UMD compatible javascript library it is necessary
-        // to add it to the requirejs.config({})
-            [
-                'shim' => [
-                    'clipboardjs' => ['exports' => 'clipboardjs']
-                ],
-                'paths' => [
-                    'clipboardjs' => PathUtility::getAbsoluteWebPath(
-                        ExtensionManagementUtility::extPath(
-                            'iconcheck',
-                            'Resources/Public/JavaScript/clipboard.js-2.0.1/dist/'
-                        ) . 'clipboard.min'
-                    )
-                ],
-            ]
-        );
-        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Iconcheck/CopyToClipboard');
+    public function __construct(
+        private readonly IconRegistry $iconRegistry,
+        private readonly ModuleTemplateFactory $moduleTemplateFactory,
+    ) {
     }
 
     /**
      * The main action of the extension
-     *
-     * @throws \InvalidArgumentException
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
-        // Instantiate TYPO3 icon registry
-        $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
         // Retrieve all registered icons from registry
-        $iconsAll = $iconRegistry->getAllRegisteredIconIdentifiers();
+        $allIcons = $this->iconRegistry->getAllRegisteredIconIdentifiers();
 
         // Load extConf
-        // @TODO If TYPO3 8 LTS support should be dropped: Refactor $extConf to use TYPO3 core's ExtensionConfiguration class
-        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('iconcheck') ?: [];;
 
         // Show all icon identifiers alphabetically if enabled
-        if ($extConf->isListAllIconIdentifiers()) {
-            $listAll = $iconsAll;
+        if ($extConf['listAllIconIdentifiers'] ?? true) {
+            $listAll = $allIcons;
             natcasesort($listAll);
             $this->view->assign('allIcons', $listAll);
         }
 
         // Render userdefined icons in module
-        if (!empty($extConf->getListIconsWithPrefix())) {
+        $iconsWithPrefixList = (string)($this->settings['listIconsWithPrefix'] ?? 'theme,content');
+        $iconsWithPrefix = GeneralUtility::trimExplode(',', $iconsWithPrefixList, true);
+
+        if ($iconsWithPrefix) {
             $iconsToShow = [];
-            foreach ($extConf->getListIconsWithPrefix() as $string) {
-                foreach ($iconsAll as $key) {
-                    if (strpos($key, $string) === 0) {
-                        $iconsToShow[$string][] = $key;
+
+            foreach ($iconsWithPrefix as $iconPrefix) {
+                foreach ($allIcons as $icon) {
+                    if (str_starts_with($icon, $iconPrefix)) {
+                        if (empty($iconsToShow[$iconPrefix])) {
+                            $iconsToShow[$iconPrefix] = [];
+                        }
+
+                        $iconsToShow[$iconPrefix][] = $icon;
                     }
                 }
+
                 // Sort icons (only if it is an array)
-                if (is_array($iconsToShow[$string])) {
-                    natcasesort($iconsToShow[$string]);
+                if (isset($iconsToShow[$iconPrefix])) {
+                    natcasesort($iconsToShow[$iconPrefix]);
                 }
             }
+
             $this->view->assign('iconsToShow', $iconsToShow);
         }
+
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setContent($this->view->render());
+
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 }

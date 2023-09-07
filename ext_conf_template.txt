@@ -5,9 +5,3 @@ listAllIconIdentifiers = 1
 
 # cat=module/enable/110; type=string; label=LLL:EXT:iconcheck/Resources/Private/Language/locallang.xlf:extmng.listIconsWithPrefix
 listIconsWithPrefix = theme, content
-
-# cat=module/enable/120; type=boolean; label=LLL:EXT:iconcheck/Resources/Private/Language/locallang.xlf:extmng.enableModuleForEverybody
-enableModuleForEverybody = 1
-
-# cat=module/enable/130; type=boolean; label=LLL:EXT:iconcheck/Resources/Private/Language/locallang.xlf:extmng.disableModule
-disableModule = 0

@@ -23,51 +23,29 @@
 	],
 	"homepage": "https://github.com/josefglatz/iconcheck",
 	"license": [
-		"GPL-3.0"
+		"GPL-3.0-or-later"
 	],
 	"require": {
-		"php":"^7.0 || ^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0",
-		"typo3/cms-core": "^8.7 || ^9.5 || ^10.4 || ^11.5"
-	},
-	"require-dev": {
-		"namelesscoder/typo3-repository-client": "^2.0",
-		"mikey179/vfsstream": "~1.6.0",
-		"phpunit/phpunit": "~4.8.0"
+		"php":"^8.1",
+		"typo3/cms-backend": "^12.4",
+		"typo3/cms-core": "^12.4",
+		"typo3/cms-extbase": "^12.4",
+		"typo3/cms-fluid": "^12.4"
 	},
 	"autoload": {
 		"psr-4": {
 			"JosefGlatz\\Iconcheck\\": "Classes"
 		}
 	},
-	"replace": {
-		"typo3-ter/iconcheck": "self.version"
-	},
 	"config": {
-		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin"
-	},
-	"scripts": {
-		"post-autoload-dump": [
-			"mkdir -p .Build/Web/typo3conf/ext/",
-			"[ -L .Build/Web/typo3conf/ext/iconcheck ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/iconcheck"
-		],
-		"release": [
-			"@ext-dependencies",
-			"@package"
-		],
-		"ext-dependencies": [
-			"cd Resources/Private/Contrib/Libraries && composer install"
-		],
-		"package": [
-			"./Build/Release.sh"
-		]
+		"allow-plugins": {
+			"typo3/class-alias-loader": false,
+			"typo3/cms-composer-installers": false
+		}
 	},
 	"extra": {
 		"typo3/cms": {
-			"cms-package-dir": "{$vendor-dir}/typo3/cms",
-			"web-dir": ".Build/Web",
 			"extension-key": "iconcheck"
 		}
 	}
 }
-

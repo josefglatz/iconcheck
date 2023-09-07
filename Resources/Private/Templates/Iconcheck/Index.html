@@ -1,12 +1,13 @@
-{namespace core = TYPO3\CMS\Core\ViewHelpers}
-{namespace ic = JosefGlatz\Iconcheck\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:layout name="Default" />
 
 <f:section name="content">
 	<h1><f:translate key="backendModule.Iconcheck" /></h1>
 	<p class="lead">List registered icon identifiers and show icons with string
-		<f:for each="{iconsToShow}" as="icon" key="key" iteration="i"><strong>{key}</strong><f:if condition="{i.isLast}" then="." else=" / " />
-		</f:for> <span class="text-muted small">An Adminstrator can set the desired icons to show within the extension configuration.</span>
+		<f:for each="{iconsToShow}" as="icon" key="key" iteration="i"><strong>{key}</strong><f:if condition="{i.isLast}" then="." else=" / " /></f:for>
 	</p>
 
 	<div class="hidden show-when-copy-paste-supported">
@@ -21,7 +22,7 @@
 
 	<div class="row">
 		<div class="col-12 col-md-4 col-lg-2">
-			<input type="text" id="t3js-icon-search" class="form-control t3js-clearable">
+			<input type="text" id="t3js-icon-search" class="form-control form-control-clearable t3js-clearable">
 		</div>
 	</div>
 
@@ -60,3 +61,5 @@
 		<p>{icon}</p>
 	</div>
 </f:section>
+
+</html>
